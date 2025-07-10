@@ -13,6 +13,23 @@ export const Strings = {
     signUp: "Sign Up",
     orConnect: "Or connect",
   },
+  signup: {
+    title: "Sign up now",
+    description: "Please fill the details and create an account",
+    email: "Email-address",
+    password: "Password",
+    confirmPassword: "Confirm Password",
+    signUp: "Sign Up",
+    already_have_an_account: "Already have an account?",
+    signIn: "Sign In",
+    orConnect: "Or connect",
+  },
+  forgotPassword: {
+    title: "Forgot Password",
+    description: "Enter your email account to reset your password",
+    email: "Email-address",
+    resetPassword: "Reset Password",
+  },
 };
 
 export default Strings;

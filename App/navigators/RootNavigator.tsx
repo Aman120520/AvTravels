@@ -12,6 +12,7 @@ const RootNavigator = () => {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
+        animation: "fade",
       }}
     >
       <Stack.Screen name="SplashScreen" component={SplashScreen} />

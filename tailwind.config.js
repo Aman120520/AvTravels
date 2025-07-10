@@ -6,13 +6,40 @@ module.exports = {
     "./components/**/*.{js,jsx,ts,tsx}",
   ],
   presets: [require("nativewind/preset")],
+  darkMode: "class", // Enable dark mode support
   theme: {
     extend: {
       colors: {
-        primary: "#0D6EFD",
-        light_gray: "#F7F7F9",
-        dark_gray: "#7D848D",
+        primary: {
+          DEFAULT: "var(--color-primary-default)",
+          light: "var(--color-primary-light)",
+        },
+        secondary: {
+          DEFAULT: "var(--color-secondary-default)",
+          light: "var(--color-secondary-light)",
+        },
+        texinput: {
+          DEFAULT: "var(--color-textinput-default)",
+        },
+        accent: {
+          DEFAULT: "var(--color-accent-default)",
+          light: "var(--color-accent-light)",
+        },
+        grey: {
+          DEFAULT: "var(--color-grey-default)",
+        },
+        slate: {
+          DEFAULT: "var(--color-slate-default)",
+        },
+        dark: {
+          DEFAULT: "var(--color-dark-default)",
+        },
+        light: {
+          DEFAULT: "var(--color-light-default)",
+        },
+        overlay: "var(--color-overlay)",
       },
+
       fontFamily: {
         poppins: ["Inter"],
         "inter-Bold": ["Inter-Bold"],
