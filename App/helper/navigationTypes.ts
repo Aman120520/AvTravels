@@ -20,13 +20,17 @@ export type BottomTabParamList = {
   Calendar: undefined;
   Message: undefined;
   Profile: undefined;
+  Search: undefined; // Added for the central button placeholder
 };
 
 export type HomeStackParamList = {
   HomeScreen: undefined;
+  Details: { destinationId: string }; // Added Details screen with params
+  Map: undefined; // Added Map screen
 };
 export type CalendarStackParamList = {
   CalendarScreen: undefined;
+  PopularPlacesScreen: undefined; // Added Popular Places screen
 };
 export type MessageStackParamList = {
   MessageScreen: undefined;

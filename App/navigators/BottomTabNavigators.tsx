@@ -7,6 +7,7 @@ import CalendarNavigators from "./CalendarNavigators";
 import MessageNavigators from "./MessageNavigators";
 import ProfileNavigators from "./ProfileNavigators";
 import { Ionicons } from "@expo/vector-icons";
+import HomeScreen from "../screens/HomeScreens/HomeScreen";
 
 const { width, height } = Dimensions.get("window");
 const Tab = createBottomTabNavigator<BottomTabParamList>();

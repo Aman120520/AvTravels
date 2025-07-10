@@ -3,6 +3,7 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { CalendarStackParamList } from "../helper/navigationTypes";
 import CalendarScreen from "../screens/CalendarScreens/CalendarScreen";
+import PopularPlacesScreen from "../screens/CalendarScreens/PopularPlacesScreen";
 
 const Stack = createNativeStackNavigator<CalendarStackParamList>();
 
@@ -15,6 +16,11 @@ const CalendarNavigators = () => {
       }}
     >
       <Stack.Screen name="CalendarScreen" component={CalendarScreen} />
+      {/* Add other screens here as needed */}
+      <Stack.Screen
+        name="PopularPlacesScreen"
+        component={PopularPlacesScreen}
+      />
     </Stack.Navigator>
   );
 };
