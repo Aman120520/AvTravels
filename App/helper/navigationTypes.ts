@@ -34,7 +34,10 @@ export type CalendarStackParamList = {
 };
 export type MessageStackParamList = {
   MessageScreen: undefined;
+  ChatScreen: undefined;
 };
 export type ProfileStackParamList = {
   ProfileScreen: undefined;
+  EditProfileScreen: undefined;
+  SplashScreen: undefined; // Added Login screen for Profile navigation
 };

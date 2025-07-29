@@ -3,6 +3,7 @@ import React from "react";
 import { MessageStackParamList } from "../helper/navigationTypes";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import MessageScreen from "../screens/MessageScreens/MessageScreen";
+import ChatScreen from "../screens/MessageScreens/ChatScreen";
 
 const Stack = createNativeStackNavigator<MessageStackParamList>();
 
@@ -15,6 +16,7 @@ const MessageNavigators = () => {
       }}
     >
       <Stack.Screen name="MessageScreen" component={MessageScreen} />
+      <Stack.Screen name="ChatScreen" component={ChatScreen} />
     </Stack.Navigator>
   );
 };

@@ -6,6 +6,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Images from "../../resources/Images";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { HomeStackParamList } from "../../helper/navigationTypes";
+import { ThemeContext } from "../../Context/ThemeContext";
+import { themes } from "../../resources/theme";
 
 // Mock Data - In a real app, you would get this from navigation params
 const details = {
@@ -32,101 +34,258 @@ type HomeScreenNavigationProp = NativeStackNavigationProp<
 
 const DetailsScreen: React.FC = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
+  const { theme } = React.useContext(ThemeContext);
+  const colors = theme === "dark" ? themes.dark : themes.light;
 
   return (
-    <View className="flex-1 bg-white">
+    <View style={{ flex: 1, backgroundColor: colors["--color-light-default"] }}>
       <ScrollView>
         {/* Background Image Header */}
-        <View className="relative">
-          <Image source={details.image} className="w-full h-96" />
-          <SafeAreaView className="absolute top-0 left-0 right-0 flex-row justify-between items-center px-6">
+        <View style={{ position: "relative" }}>
+          <Image
+            source={details.image}
+            style={{ width: "100%", height: 320 }}
+          />
+          <SafeAreaView
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              paddingHorizontal: 24,
+            }}
+          >
             <TouchableOpacity
               onPress={() => navigation.goBack()}
-              className="bg-white/70 p-3 rounded-full"
+              style={{
+                backgroundColor: colors["--color-primary-light"] + "cc",
+                padding: 12,
+                borderRadius: 999,
+              }}
             >
-              <Ionicons name="chevron-back" size={24} color="black" />
+              <Ionicons
+                name="chevron-back"
+                size={24}
+                color={colors["--color-secondary-default"]}
+              />
             </TouchableOpacity>
-            <Text className="text-lg font-inter-SemiBold text-slate-800">
+            <Text
+              style={{
+                fontSize: 18,
+                fontFamily: "Inter-SemiBold",
+                color: colors["--color-secondary-default"],
+              }}
+            >
               Details
             </Text>
-            <TouchableOpacity className="bg-white/70 p-3 rounded-full">
-              <Ionicons name="bookmark-outline" size={24} color="black" />
+            <TouchableOpacity
+              style={{
+                backgroundColor: colors["--color-primary-light"] + "cc",
+                padding: 12,
+                borderRadius: 999,
+              }}
+            >
+              <Ionicons
+                name="bookmark-outline"
+                size={24}
+                color={colors["--color-secondary-default"]}
+              />
             </TouchableOpacity>
           </SafeAreaView>
         </View>
-
         {/* Content Card */}
-        <View className="p-6 -mt-10 bg-white rounded-t-3xl">
-          <Text className="text-3xl font-inter-Bold text-slate-800">
+        <View
+          style={{
+            padding: 24,
+            marginTop: -40,
+            backgroundColor: colors["--color-primary-light"],
+            borderTopLeftRadius: 32,
+            borderTopRightRadius: 32,
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 28,
+              fontFamily: "Inter-Bold",
+              color: colors["--color-secondary-default"],
+            }}
+          >
             {details.name}
           </Text>
-          <View className="flex-row items-center mt-2">
-            <Ionicons name="location-sharp" size={18} color="#888" />
-            <Text className="text-base text-gray-600 ml-1 font-inter-Regular">
+          <View
+            style={{ flexDirection: "row", alignItems: "center", marginTop: 8 }}
+          >
+            <Ionicons
+              name="location-sharp"
+              size={18}
+              color={colors["--color-grey-default"]}
+            />
+            <Text
+              style={{
+                fontSize: 16,
+                color: colors["--color-grey-default"],
+                marginLeft: 4,
+                fontFamily: "Inter-Regular",
+              }}
+            >
               {details.location}
             </Text>
           </View>
-
           {/* Info Row */}
-          <View className="flex-row items-center justify-between mt-4">
-            <View className="flex-row items-center">
-              <Ionicons name="star" size={20} color="#FFD700" />
-              <Text className="text-base font-inter-Bold text-slate-700 ml-1">
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginTop: 16,
+            }}
+          >
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <Ionicons
+                name="star"
+                size={20}
+                color={colors["--color-accent-default"]}
+              />
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontFamily: "Inter-Bold",
+                  color: colors["--color-secondary-default"],
+                  marginLeft: 4,
+                }}
+              >
                 {details.rating}
               </Text>
-              <Text className="text-base text-gray-500 ml-1 font-inter-Regular">
+              <Text
+                style={{
+                  fontSize: 16,
+                  color: colors["--color-grey-default"],
+                  marginLeft: 4,
+                  fontFamily: "Inter-Regular",
+                }}
+              >
                 ({details.reviews} Reviews)
               </Text>
             </View>
-            <Text className="text-2xl font-inter-Bold text-cyan-500">
+            <Text
+              style={{
+                fontSize: 24,
+                fontFamily: "Inter-Bold",
+                color: colors["--color-primary-default"],
+              }}
+            >
               ${details.price}/
-              <Text className="text-base font-inter-Regular text-gray-600">
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontFamily: "Inter-Regular",
+                  color: colors["--color-grey-default"],
+                }}
+              >
                 Person
               </Text>
             </Text>
           </View>
-
           {/* Facilities Icons */}
-          <View className="flex-row justify-around mt-6">
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-around",
+              marginTop: 24,
+            }}
+          >
             {details.facilities.map((facility) => (
-              <View key={facility.name} className="items-center">
-                <View className="bg-cyan-50 p-4 rounded-full">
+              <View key={facility.name} style={{ alignItems: "center" }}>
+                <View
+                  style={{
+                    backgroundColor: colors["--color-accent-light"],
+                    padding: 16,
+                    borderRadius: 999,
+                  }}
+                >
                   <Ionicons
                     name={facility.icon as any}
                     size={24}
-                    color="rgb(6 182 212)"
+                    color={colors["--color-accent-default"]}
                   />
                 </View>
-                <Text className="mt-2 text-xs text-gray-600 font-inter-Medium">
+                <Text
+                  style={{
+                    marginTop: 8,
+                    fontSize: 12,
+                    color: colors["--color-grey-default"],
+                    fontFamily: "Inter-Medium",
+                  }}
+                >
                   {facility.name}
                 </Text>
               </View>
             ))}
           </View>
-
           {/* About Section */}
-          <Text className="text-xl font-inter-Bold text-slate-800 mt-6">
+          <Text
+            style={{
+              fontSize: 20,
+              fontFamily: "Inter-Bold",
+              color: colors["--color-secondary-default"],
+              marginTop: 24,
+            }}
+          >
             About Destination
           </Text>
-          <Text className="text-base text-gray-600 mt-2 leading-6 font-inter-Regular">
+          <Text
+            style={{
+              fontSize: 16,
+              color: colors["--color-grey-default"],
+              marginTop: 8,
+              lineHeight: 24,
+              fontFamily: "Inter-Regular",
+            }}
+          >
             {details.about}
-            <Text className="text-cyan-500 font-inter-SemiBold">
+            <Text
+              style={{
+                color: colors["--color-primary-default"],
+                fontFamily: "Inter-SemiBold",
+              }}
+            >
               {" "}
               Read More
             </Text>
           </Text>
         </View>
       </ScrollView>
-
       {/* Footer Button */}
-      <SafeAreaView className="px-6 py-2 bg-white" edges={["bottom"]}>
+      <SafeAreaView
+        style={{
+          paddingHorizontal: 24,
+          paddingVertical: 8,
+          backgroundColor: colors["--color-primary-light"],
+        }}
+        edges={["bottom"]}
+      >
         <TouchableOpacity
-          className="bg-blue-600 w-full py-4 rounded-full"
+          style={{
+            backgroundColor: colors["--color-primary-default"],
+            width: "100%",
+            paddingVertical: 16,
+            borderRadius: 999,
+          }}
           onPress={() => {
             navigation.navigate("Map");
           }}
         >
-          <Text className="text-white text-lg font-inter-Bold text-center">
+          <Text
+            style={{
+              color: colors["--color-primary-light"],
+              fontSize: 18,
+              fontFamily: "Inter-Bold",
+              textAlign: "center",
+            }}
+          >
             Book Now
           </Text>
         </TouchableOpacity>

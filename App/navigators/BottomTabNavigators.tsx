@@ -1,5 +1,5 @@
 import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "../helper/navigationTypes";
 import HomeNavigators from "./HomeNavigators";
@@ -7,24 +7,25 @@ import CalendarNavigators from "./CalendarNavigators";
 import MessageNavigators from "./MessageNavigators";
 import ProfileNavigators from "./ProfileNavigators";
 import { Ionicons } from "@expo/vector-icons";
-import HomeScreen from "../screens/HomeScreens/HomeScreen";
+import { ThemeContext } from "../Context/ThemeContext";
 
 const { width, height } = Dimensions.get("window");
 const Tab = createBottomTabNavigator<BottomTabParamList>();
 
 const BottomTabNavigators = () => {
+  const { theme } = useContext(ThemeContext);
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
         tabBarHideOnKeyboard: true,
         tabBarStyle: {
-          backgroundColor: "white",
+          backgroundColor: theme === "dark" ? "#1B1E28" : "white",
           width: width,
           height: height * 0.09,
           paddingTop: 10,
-          borderTopRightRadius: 20,
-          borderTopLeftRadius: 20,
+          borderTopRightRadius: theme === "dark" ? 0 : 20,
+          borderTopLeftRadius: theme === "dark" ? 0 : 20,
           justifyContent: "center",
           alignItems: "center",
           borderTopWidth: 0,
@@ -33,14 +34,7 @@ const BottomTabNavigators = () => {
     >
       <Tab.Screen
         options={{
-          // tabBarActiveTintColor: Colors.primary,
-          // tabBarInactiveTintColor: Colors.black,
           tabBarShowLabel: true,
-          // tabBarLabelStyle: {
-          //   fontFamily: AppFonts.medium,
-          //   fontSize: TextFontSize.tabLabelText,
-          //   bottom: ScaleSize.spacing_very_small,
-          // },
           tabBarIcon: ({ focused, color, size }) => (
             <>
               <Ionicons

@@ -3,6 +3,8 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { ThemeContext } from "../../Context/ThemeContext";
+import { themes } from "../../resources/theme";
 
 // Mock Data
 const mapDetails = {
@@ -38,95 +40,244 @@ const mapDetails = {
 
 const MapScreen: React.FC = () => {
   const navigation = useNavigation();
+  const { theme } = React.useContext(ThemeContext);
+  const colors = theme === "dark" ? themes.dark : themes.light;
 
   return (
-    <View className="flex-1 bg-gray-300">
+    <View style={{ flex: 1, backgroundColor: colors["--color-light-default"] }}>
       {/* Background Map Placeholder */}
       <Image
-        source={{ uri: "https://i.stack.imgur.com/7bI1Y.jpg" }} // Using a generic map image as a placeholder
-        className="absolute w-full h-full"
+        source={{ uri: "https://i.stack.imgur.com/7bI1Y.jpg" }}
+        style={{ position: "absolute", width: "100%", height: "100%" }}
       />
-
       {/* Header */}
-      <SafeAreaView className="absolute top-0 left-0 right-0 flex-row items-center px-6">
+      <SafeAreaView
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          flexDirection: "row",
+          alignItems: "center",
+          paddingHorizontal: 24,
+        }}
+      >
         <TouchableOpacity
           onPress={() => navigation.goBack()}
-          className="bg-white/70 p-3 rounded-full"
+          style={{
+            backgroundColor: colors["--color-primary-light"] + "cc",
+            padding: 12,
+            borderRadius: 999,
+          }}
         >
-          <Ionicons name="chevron-back" size={24} color="black" />
+          <Ionicons
+            name="chevron-back"
+            size={24}
+            color={colors["--color-secondary-default"]}
+          />
         </TouchableOpacity>
-        <Text className="flex-1 text-center text-lg font-inter-SemiBold text-slate-800 -ml-6">
+        <Text
+          style={{
+            flex: 1,
+            textAlign: "center",
+            fontSize: 18,
+            fontFamily: "Inter-SemiBold",
+            color: colors["--color-secondary-default"],
+            marginLeft: -24,
+          }}
+        >
           View
         </Text>
       </SafeAreaView>
-
       {/* Map Markers */}
       {mapDetails.locations.map((loc) => (
         <View
           key={loc.name}
-          style={{ position: "absolute", top: loc.top, left: loc.left }}
+          style={{
+            position: "absolute",
+            top: `${parseFloat(loc.top)}%`,
+            left: `${parseFloat(loc.left)}%`,
+          }}
         >
-          <View className="bg-white p-2 rounded-lg flex-row items-center shadow-lg">
+          <View
+            style={{
+              backgroundColor: colors["--color-primary-light"],
+              padding: 8,
+              borderRadius: 12,
+              flexDirection: "row",
+              alignItems: "center",
+              shadowColor: "#000",
+              shadowOpacity: 0.1,
+              shadowRadius: 4,
+            }}
+          >
             <Image
               source={{ uri: loc.image }}
-              className="w-10 h-10 rounded-md"
+              style={{ width: 40, height: 40, borderRadius: 8 }}
             />
-            <View className="ml-2">
-              <Text className="font-inter-Bold text-slate-800">{loc.name}</Text>
-              <Text className="text-xs text-gray-500">{loc.distance}</Text>
+            <View style={{ marginLeft: 8 }}>
+              <Text
+                style={{
+                  fontFamily: "Inter-Bold",
+                  color: colors["--color-secondary-default"],
+                  fontSize: 16,
+                }}
+              >
+                {loc.name}
+              </Text>
+              <Text
+                style={{ fontSize: 12, color: colors["--color-grey-default"] }}
+              >
+                {loc.distance}
+              </Text>
             </View>
           </View>
           {/* Triangle Pointer */}
-          <View className="w-0 h-0 bg-transparent border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-t-[10px] border-t-white self-center" />
+          <View
+            style={{
+              width: 0,
+              height: 0,
+              backgroundColor: "transparent",
+              borderLeftWidth: 10,
+              borderLeftColor: "transparent",
+              borderRightWidth: 10,
+              borderRightColor: "transparent",
+              borderTopWidth: 10,
+              borderTopColor: colors["--color-primary-light"],
+              alignSelf: "center",
+            }}
+          />
         </View>
       ))}
-
       {/* Bottom Details Card */}
       <SafeAreaView
-        className="absolute bottom-0 left-0 right-0"
+        style={{ position: "absolute", bottom: 0, left: 0, right: 0 }}
         edges={["bottom"]}
       >
-        <View className="bg-white m-4 p-5 rounded-2xl shadow-lg">
-          <View className="flex-row items-center">
+        <View
+          style={{
+            backgroundColor: colors["--color-primary-light"],
+            margin: 16,
+            padding: 20,
+            borderRadius: 20,
+            shadowColor: "#000",
+            shadowOpacity: 0.1,
+            shadowRadius: 8,
+          }}
+        >
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Image
               source={{ uri: mapDetails.image }}
-              className="w-16 h-16 rounded-xl"
+              style={{ width: 64, height: 64, borderRadius: 16 }}
             />
-            <View className="flex-1 ml-4">
-              <Text className="text-lg font-inter-Bold text-slate-800">
+            <View style={{ flex: 1, marginLeft: 16 }}>
+              <Text
+                style={{
+                  fontSize: 18,
+                  fontFamily: "Inter-Bold",
+                  color: colors["--color-secondary-default"],
+                }}
+              >
                 {mapDetails.name}
               </Text>
-              <View className="flex-row items-center mt-1">
-                <Ionicons name="star" size={16} color="#FFD700" />
-                <Text className="text-sm font-semibold text-gray-700 ml-1">
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginTop: 4,
+                }}
+              >
+                <Ionicons
+                  name="star"
+                  size={16}
+                  color={colors["--color-accent-default"]}
+                />
+                <Text
+                  style={{
+                    fontSize: 14,
+                    fontWeight: "600",
+                    color: colors["--color-secondary-default"],
+                    marginLeft: 4,
+                  }}
+                >
                   {mapDetails.rating}
                 </Text>
-                <View className="flex-row ml-4">
+                <View style={{ flexDirection: "row", marginLeft: 16 }}>
                   {mapDetails.avatars.map((avatar, index) => (
                     <Image
                       key={index}
                       source={{ uri: avatar }}
-                      className="w-6 h-6 rounded-full border border-white"
-                      style={{ marginLeft: index > 0 ? -8 : 0 }}
+                      style={{
+                        width: 24,
+                        height: 24,
+                        borderRadius: 12,
+                        borderWidth: 2,
+                        borderColor: colors["--color-primary-light"],
+                        marginLeft: index > 0 ? -8 : 0,
+                      }}
                     />
                   ))}
                 </View>
-                <Text className="text-xs text-gray-500 font-medium ml-1">
+                <Text
+                  style={{
+                    fontSize: 12,
+                    color: colors["--color-grey-default"],
+                    fontWeight: "500",
+                    marginLeft: 4,
+                  }}
+                >
                   +50
                 </Text>
               </View>
             </View>
           </View>
-          <View className="border-t border-gray-200 my-4" />
-          <View className="flex-row justify-between items-center">
-            <View className="flex-row items-center">
-              <Ionicons name="time-outline" size={20} color="gray" />
-              <Text className="ml-2 text-base text-gray-600">
+          <View
+            style={{
+              borderTopWidth: 1,
+              borderTopColor: colors["--color-grey-default"],
+              marginVertical: 16,
+            }}
+          />
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <Ionicons
+                name="time-outline"
+                size={20}
+                color={colors["--color-grey-default"]}
+              />
+              <Text
+                style={{
+                  marginLeft: 8,
+                  fontSize: 16,
+                  color: colors["--color-grey-default"],
+                }}
+              >
                 {mapDetails.time}
               </Text>
             </View>
-            <TouchableOpacity className="bg-blue-600 px-8 py-3 rounded-full">
-              <Text className="text-white font-inter-Bold">See On The Map</Text>
+            <TouchableOpacity
+              style={{
+                backgroundColor: colors["--color-primary-default"],
+                paddingHorizontal: 32,
+                paddingVertical: 12,
+                borderRadius: 999,
+              }}
+            >
+              <Text
+                style={{
+                  color: colors["--color-primary-light"],
+                  fontFamily: "Inter-Bold",
+                  fontSize: 16,
+                }}
+              >
+                See On The Map
+              </Text>
             </TouchableOpacity>
           </View>
         </View>

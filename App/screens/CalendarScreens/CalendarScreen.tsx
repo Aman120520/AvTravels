@@ -5,6 +5,9 @@ import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { CalendarStackParamList } from "../../helper/navigationTypes";
+import Images from "../../resources/Images";
+import { ThemeContext } from "../../Context/ThemeContext";
+import { themes } from "../../resources/theme";
 
 // Mock Data
 const scheduleData = [
@@ -13,24 +16,84 @@ const scheduleData = [
     name: "Niladri Reservoir",
     location: "Tekergat, Sunamgnj",
     date: "26 January 2022",
-    image:
-      "https://images.unsplash.com/photo-1588622146908-a9141f26933c?q=80&w=1887",
+    image: Images.posts.eleven,
   },
   {
     id: "2",
     name: "High Rech Park",
     location: "Zeero Point, Sylhet",
     date: "26 January 2022",
-    image:
-      "https://images.unsplash.com/photo-1559587938-23517134a41d?q=80&w=1887",
+    image: Images.posts.ten,
   },
   {
     id: "3",
     name: "Darma Reservoir",
     location: "Darma, Kuningan",
     date: "26 January 2022",
-    image:
-      "https://images.unsplash.com/photo-1518548419133-c1b471a11536?q=80&w=1887",
+    image: Images.posts.nine,
+  },
+  {
+    id: "4",
+    name: "Niladri Reservoir",
+    location: "Tekergat, Sunamgnj",
+    date: "26 January 2022",
+    image: Images.posts.eleven,
+  },
+  {
+    id: "5",
+    name: "High Rech Park",
+    location: "Zeero Point, Sylhet",
+    date: "26 January 2022",
+    image: Images.posts.ten,
+  },
+  {
+    id: "6",
+    name: "Darma Reservoir",
+    location: "Darma, Kuningan",
+    date: "26 January 2022",
+    image: Images.posts.nine,
+  },
+  {
+    id: "7",
+    name: "Niladri Reservoir",
+    location: "Tekergat, Sunamgnj",
+    date: "26 January 2022",
+    image: Images.posts.eleven,
+  },
+  {
+    id: "8",
+    name: "High Rech Park",
+    location: "Zeero Point, Sylhet",
+    date: "26 January 2022",
+    image: Images.posts.ten,
+  },
+  {
+    id: "9",
+    name: "Darma Reservoir",
+    location: "Darma, Kuningan",
+    date: "26 January 2022",
+    image: Images.posts.nine,
+  },
+  {
+    id: "10",
+    name: "Niladri Reservoir",
+    location: "Tekergat, Sunamgnj",
+    date: "26 January 2022",
+    image: Images.posts.eleven,
+  },
+  {
+    id: "11",
+    name: "High Rech Park",
+    location: "Zeero Point, Sylhet",
+    date: "26 January 2022",
+    image: Images.posts.ten,
+  },
+  {
+    id: "12",
+    name: "Darma Reservoir",
+    location: "Darma, Kuningan",
+    date: "26 January 2022",
+    image: Images.posts.nine,
   },
 ];
 
@@ -45,61 +108,124 @@ type ScheduleNavigationProp = NativeStackNavigationProp<
 const CalendarScreen = () => {
   const navigation = useNavigation<ScheduleNavigationProp>();
   const [selectedDate, setSelectedDate] = useState(22);
+  const { theme } = React.useContext(ThemeContext);
+  const colors = theme === "dark" ? themes.dark : themes.light;
 
   return (
-    <SafeAreaView className="flex-1 bg-white" edges={["top"]}>
+    <SafeAreaView
+      style={{ flex: 1 }}
+      className="bg-primary-light"
+      edges={["top"]}
+    >
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 100 }}
       >
         {/* Header */}
-        <View className="px-6 mt-2 flex-row justify-between items-center">
-          <TouchableOpacity className="bg-gray-100 p-3 rounded-full">
-            <Ionicons name="chevron-back" size={24} color="#333" />
+        <View
+          style={{
+            paddingHorizontal: 24,
+            marginTop: 8,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              padding: 12,
+              borderRadius: 999,
+            }}
+            className="bg-texinput p-3 rounded-full shadow-sm"
+          >
+            <Ionicons
+              name="chevron-back"
+              size={24}
+              color={theme === "dark" ? "#fff" : "#333"}
+            />
           </TouchableOpacity>
-          <Text className="text-lg font-inter-SemiBold text-gray-800">
+          <Text className="text-lg font-inter-SemiBold color-secondary">
             Schedule
           </Text>
-          <TouchableOpacity className="bg-gray-100 p-3 rounded-full">
-            <Ionicons name="notifications-outline" size={24} color="#333" />
+          <TouchableOpacity
+            style={{
+              padding: 12,
+              borderRadius: 999,
+            }}
+            className="bg-texinput p-3 rounded-full shadow-sm"
+          >
+            <Ionicons
+              name="notifications-outline"
+              size={24}
+              color={theme === "dark" ? "#fff" : "#333"}
+            />
           </TouchableOpacity>
         </View>
-
         {/* Date Picker */}
-        <View className="mt-8 px-6">
-          <View className="flex-row justify-between items-center mb-4">
-            <Text className="text-xl font-inter-Bold text-slate-800">
+        <View style={{ marginTop: 32, paddingHorizontal: 24 }}>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: 16,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 20,
+                fontFamily: "Inter-Bold",
+              }}
+              className="color-secondary"
+            >
               22 October
             </Text>
-            <View className="flex-row">
-              <TouchableOpacity className="p-2">
-                <Ionicons name="chevron-back" size={20} color="gray" />
+            <View style={{ flexDirection: "row" }}>
+              <TouchableOpacity style={{ padding: 8 }}>
+                <Ionicons
+                  name="chevron-back"
+                  size={20}
+                  color={theme === "dark" ? "#fff" : "#333"}
+                />
               </TouchableOpacity>
-              <TouchableOpacity className="p-2">
-                <Ionicons name="chevron-forward" size={20} color="gray" />
+              <TouchableOpacity style={{ padding: 8 }}>
+                <Ionicons
+                  name="chevron-forward"
+                  size={20}
+                  color={theme === "dark" ? "#fff" : "#333"}
+                />
               </TouchableOpacity>
             </View>
           </View>
-          <View className="flex-row justify-around">
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-around" }}
+          >
             {dates.map((date, index) => (
               <TouchableOpacity
                 key={date}
                 onPress={() => setSelectedDate(date)}
-                className={`items-center p-3 rounded-2xl ${
-                  selectedDate === date ? "bg-blue-500" : "bg-white"
-                }`}
+                style={{
+                  alignItems: "center",
+                  padding: 12,
+                  borderRadius: 16,
+                  backgroundColor: selectedDate === date && "#0D6EFD",
+                }}
               >
                 <Text
-                  className={`font-inter-Medium ${
-                    selectedDate === date ? "text-white" : "text-gray-400"
-                  }`}
+                  style={{
+                    fontFamily: "Inter-Medium",
+                  }}
+                  className="color-secondary"
                 >
                   {days[index]}
                 </Text>
                 <Text
-                  className={`mt-2 text-lg font-inter-Bold ${
-                    selectedDate === date ? "text-white" : "text-slate-800"
-                  }`}
+                  style={{
+                    marginTop: 8,
+                    fontSize: 18,
+                    fontFamily: "Inter-Bold",
+                  }}
+                  className="color-secondary"
                 >
                   {date}
                 </Text>
@@ -107,49 +233,118 @@ const CalendarScreen = () => {
             ))}
           </View>
         </View>
-
         {/* My Schedule List */}
-        <View className="mt-8">
-          <View className="px-6 flex-row justify-between items-center mb-4">
-            <Text className="text-2xl font-inter-Bold text-slate-800">
+        <View style={{ marginTop: 32 }}>
+          <View
+            style={{
+              paddingHorizontal: 24,
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: 16,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 22,
+                fontFamily: "Inter-Bold",
+              }}
+              className="color-secondary"
+            >
               My Schedule
             </Text>
             <TouchableOpacity
               onPress={() => navigation.navigate("PopularPlacesScreen")}
             >
-              <Text className="text-base font-inter-Medium text-blue-500">
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontFamily: "Inter-Medium",
+                }}
+                className="color-secondary"
+              >
                 View all
               </Text>
             </TouchableOpacity>
           </View>
-
           {scheduleData.map((item) => (
             <TouchableOpacity
               key={item.id}
-              className="flex-row items-center bg-gray-50 mx-6 mb-4 p-4 rounded-2xl"
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                backgroundColor: colors["--color-primary-light"],
+                marginHorizontal: 24,
+                marginBottom: 16,
+                padding: 16,
+                borderRadius: 18,
+              }}
             >
               <Image
-                source={{ uri: item.image }}
-                className="w-20 h-20 rounded-xl"
+                source={item.image}
+                style={{ width: 80, height: 80, borderRadius: 16 }}
               />
-              <View className="flex-1 ml-4">
-                <Text className="text-lg font-inter-Bold text-slate-800">
+              <View style={{ flex: 1, marginLeft: 16 }}>
+                <Text
+                  style={{
+                    fontSize: 18,
+                    fontFamily: "Inter-Bold",
+                  }}
+                  className="color-secondary"
+                >
                   {item.name}
                 </Text>
-                <View className="flex-row items-center mt-1">
-                  <Ionicons name="calendar-outline" size={16} color="gray" />
-                  <Text className="text-sm text-gray-500 ml-2">
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginTop: 4,
+                  }}
+                >
+                  <Ionicons
+                    name="calendar-outline"
+                    size={16}
+                    color={theme === "dark" ? "#fff" : "#333"}
+                  />
+                  <Text
+                    style={{
+                      fontSize: 14,
+
+                      marginLeft: 8,
+                    }}
+                    className="color-secondary"
+                  >
                     {item.date}
                   </Text>
                 </View>
-                <View className="flex-row items-center mt-1">
-                  <Ionicons name="location-outline" size={16} color="gray" />
-                  <Text className="text-sm text-gray-500 ml-2">
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginTop: 4,
+                  }}
+                >
+                  <Ionicons
+                    name="location-outline"
+                    size={16}
+                    color={theme === "dark" ? "#fff" : "#333"}
+                  />
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      marginLeft: 8,
+                    }}
+                    className="color-secondary"
+                  >
                     {item.location}
                   </Text>
                 </View>
               </View>
-              <Ionicons name="chevron-forward" size={24} color="gray" />
+              <Ionicons
+                name="chevron-forward"
+                size={24}
+                color={theme === "dark" ? "#fff" : "#333"}
+              />
             </TouchableOpacity>
           ))}
         </View>

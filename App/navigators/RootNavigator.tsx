@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../helper/navigationTypes";
 import SplashScreen from "../screens/authentication/SplashScreen";
 import AuthenticationNavigator from "./AuthenticationNavigator";
+import BottomTabNavigators from "./BottomTabNavigators";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -20,6 +21,7 @@ const RootNavigator = () => {
         name="AuthenticationNavigator"
         component={AuthenticationNavigator}
       />
+      <Stack.Screen name="BottomTabNavigator" component={BottomTabNavigators} />
     </Stack.Navigator>
   );
 };
